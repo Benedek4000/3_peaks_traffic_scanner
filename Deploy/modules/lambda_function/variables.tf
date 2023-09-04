@@ -3,14 +3,19 @@ variable "source_path" {
   description = "The path that includes the source file."
 }
 
-variable "source_file" {
+variable "function_name" {
   type        = string
-  description = "The source file for the lambda function."
+  description = "Function name."
 }
 
 variable "build_files" {
   type        = string
   description = "The build file source."
+}
+
+variable "misc_files" {
+  type        = string
+  description = "The misc file source."
 }
 
 variable "region" {
@@ -31,4 +36,9 @@ variable "project" {
 variable "schedule_arn" {
   type        = string
   description = "ARN of the Cloudwatch Schedule to run the function."
+}
+
+variable "bucket_id" {
+  type        = string
+  description = "Bucket ID."
 }

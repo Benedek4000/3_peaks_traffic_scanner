@@ -1,7 +1,7 @@
 *.zip
 *.pub
-rcon_password.txt
-McRcon/*
+google_api_key.txt
+**/dependencies/*
 
 # Local .terraform directories
 **/.terraform/*

@@ -6,6 +6,6 @@ resource "aws_cloudwatch_event_rule" "traffic_check" {
 
 resource "aws_cloudwatch_event_target" "invoke_lambda" {
   rule  = aws_cloudwatch_event_rule.traffic_check.name
-  arn   = module.lambda_functions["lambda_checkTraffic.py"].arn
+  arn   = module.lambda_functions["checkTraffic"].arn
   input = jsonencode({ "message" : "Triggered by CloudWatch Event Rule" })
 }
