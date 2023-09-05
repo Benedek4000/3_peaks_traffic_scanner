@@ -14,9 +14,9 @@ request_headers = {
 }
 
 locations = {
-	"snowdon": {"lat": 53.0804419, "lng": -4.0316497},
-	"scafellpike": {"lat": 54.4552672, "lng": -3.2632789},
-	"bennevis": {"lat": 56.8099967, "lng": -5.0793709}
+	"snowdon": {"lat": 53.0802711, "lng": -4.0247946},
+	"scafellpike": {"lat": 54.4558115, "lng": -3.2634921},
+	"bennevis": {"lat": 56.8096628, "lng": -5.0794929}
 }
 
 routes = [
