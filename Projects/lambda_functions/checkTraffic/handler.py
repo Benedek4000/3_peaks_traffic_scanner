@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timedelta
 import requests
 
-s3_bucket_id = "${BUCKET_ID}"
+dynamodb_id = "${DYNAMODB_ID}"
 
 request_url = "https://routes.googleapis.com/directions/v2:computeRoutes"
 
@@ -69,14 +69,21 @@ def populate_body(origin, destination, current_time):
 	}
 	return request_body
 
-def save_to_s3(bucket_id, origin, destination, date, time, payload):
-	s3 = boto3.client('s3')
-	s3.put_object(Body=json.dumps(payload), Bucket=bucket_id, Key=f'{origin}_{destination}/{date}/{time}/{origin}_{destination}_{date}_{time}.json')
+def save_to_db(dynamodb_id, origin, destination, date, time, drive_time):
+	dynamodb = boto3.resource('dynamodb')
+	table = dynamodb.Table(dynamodb_id)
+	response = table.put_item(
+		Item={
+			"RouteAndTime": f"{origin}_{destination}_{date}_{time}",
+			"DriveTime": drive_time
+		}
+	)
+	return response
 
 def handler(event, context):
 	for origin, destination in routes:
 		request_body = populate_body(origin, destination, get_current_time("http"))
 		response = requests.post(url=request_url, headers=request_headers, data=json.dumps(request_body))
-		results = json.loads(response.text)["routes"][0]
-		save_to_s3(s3_bucket_id, origin, destination, get_current_time("date"), get_current_time("time"), results)
+		results = json.loads(response.text)["routes"][0]["duration"][:-1]
+		save_to_db(dynamodb_id, origin, destination, get_current_time("date"), get_current_time("time"), results)
 		print(f"{origin}-{destination}: SUCCESSFUL")

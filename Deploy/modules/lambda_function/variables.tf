@@ -38,7 +38,7 @@ variable "schedule_arn" {
   description = "ARN of the Cloudwatch Schedule to run the function."
 }
 
-variable "bucket_id" {
+variable "dynamodb_id" {
   type        = string
-  description = "Bucket ID."
+  description = "DynamoDB ID."
 }

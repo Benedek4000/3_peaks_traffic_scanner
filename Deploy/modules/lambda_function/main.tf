@@ -15,7 +15,7 @@ data "template_file" "handler" {
   template = file("${var.source_path}/${var.function_name}/handler.py")
   vars = {
     GOOGLE_API_KEY = file("${var.misc_files}/google_api_key.txt")
-    BUCKET_ID      = var.bucket_id
+    DYNAMODB_ID    = var.dynamodb_id
   }
 }
 

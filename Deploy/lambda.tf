@@ -10,7 +10,7 @@ module "lambda_functions" {
   role_arn      = module.lambda-role.roleArn
   project       = var.project
   region        = var.region
-  bucket_id     = module.s3_results.bucket_id
+  dynamodb_id   = aws_dynamodb_table.results.id
 
   schedule_arn = aws_cloudwatch_event_rule.traffic_check.arn
 }

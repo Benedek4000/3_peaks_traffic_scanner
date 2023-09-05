@@ -1,8 +1,6 @@
 locals {
   lambdaRolePredefinedPolicies = [
-    "AmazonEC2FullAccess",
-    "AmazonSSMFullAccess",
-    "AmazonS3FullAccess"
+    "AmazonDynamoDBFullAccess"
   ]
 }
 
