@@ -26,18 +26,10 @@ data "archive_file" "lambda_archive" {
   output_path             = "${var.build_files}/${var.function_name}.zip"
 }
 
-resource "null_resource" "install_dependencies" {
-  provisioner "local-exec" {
-    command = "pip install -r ${var.source_path}/${var.function_name}/requirements.txt --target ${var.source_path}/${var.function_name}/dependencies/python"
-  }
-}
-
 data "archive_file" "lambda_layer" {
   type        = "zip"
   source_dir  = "${var.source_path}/${var.function_name}/dependencies"
   output_path = "${var.build_files}/${var.function_name}_dependencies.zip"
-
-  depends_on = [null_resource.install_dependencies]
 }
 
 resource "aws_lambda_layer_version" "lambda_layer" {
